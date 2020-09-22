@@ -5,7 +5,7 @@ import numpy as np
 import time
 
 # constants
-CHUNK = 1024             # samples per frame
+CHUNK = 1024 * 2             # samples per frame
 FORMAT = pyaudio.paInt16    # audio format (bytes per sample?)
 CHANNELS = 1                 # single channel for microphone
 RATE = 44100                 # samples per second
@@ -37,6 +37,7 @@ stream = p.open(
 )
 
 while True:
+  try:
     data = stream.read(CHUNK, exception_on_overflow = False)
     data_np = np.frombuffer(data, dtype=np.int16)
     
@@ -48,3 +49,5 @@ while True:
     commandArduino(f'vibrate,{delta_bounded}')
     print(delta, delta_bounded)
 
+  except:
+      p.close(stream)
