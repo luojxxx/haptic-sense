@@ -14,7 +14,7 @@ import sys
 import serial
 
 serialPort = '/dev/cu.usbmodem14301'
-baudRate = 115200
+baudRate = 9600
 usbConnection = serial.Serial(serialPort, baudRate)
 
 def commandArduino(string):
